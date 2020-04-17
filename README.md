@@ -1,5 +1,8 @@
 # tech-explore
 
+## 描述
+1. 探索一些新的技术。
+
 ## Project setup
 ```
 yarn install
