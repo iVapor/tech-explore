@@ -5,7 +5,7 @@
 </template>
 
 <script>
-// import { log } from "@/utils/tools";
+import { log } from "@/utils/tools";
 
 export default {
     name: "SearchTransfer",
@@ -15,19 +15,41 @@ export default {
     },
     data() {
         return {
+            data3: [
+                {
+                    title: 'parent',
+                    loading: false,
+                    children: []
+                }
+            ],
         };
     },
     watch: {
     
     },
     created() {
-
+        this.getList()
     },
     mounted() {
 
     },
     methods: {
-
+        getList() {
+            let server = '/goods-server'
+            let url = server + '/goods/category/list'
+            // this.list = []
+            this.$ajaxGet(url)
+                .then(res => {
+                    if (res && res.code === 10000) {
+                        let resData = res.data
+                        log('resData', resData)
+                    }
+                    this.loading = false
+                })
+                .catch(err => {
+                    log(err);
+                });
+        },
     },
 }
 </script>
