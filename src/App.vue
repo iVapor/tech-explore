@@ -1,18 +1,21 @@
 <template>
-    <div id="app">
-        <HelloWorld msg="Welcome to Your Vue.js App"/>
-    </div>
+<div id="app">
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <SearchTransfer />
+</div>
 </template>
 
 <script>
-    import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue';
+import SearchTransfer from "@/components/SearchTransfer";
 
-    export default {
-        name: 'App',
-        components: {
-            HelloWorld
-        }
+export default {
+    name: 'App',
+    components: {
+        HelloWorld,
+        SearchTransfer,
     }
+}
 </script>
 
 <style>
