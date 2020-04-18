@@ -1,7 +1,9 @@
 <template>
 <div class="search-transfer">
     <Tree :data="data3"
+          :empty-text="'某的东西'"
           :load-data="loadData"
+          :render="renderContent"
           @on-toggle-expand="hideOtherTree"
           show-checkbox></Tree>
 </div>
@@ -21,11 +23,13 @@ export default {
             data3: [{
                 id: 11,
                 title: '你是',
-                loading: false,
-                children: []
+                loading: true,
+                children: [],
+
             }, {
                 id: 12,
                 title: '被折叠项',
+                disableCheckbox: true,
                 loading: false,
                 expand: true,
                 children: []
@@ -42,13 +46,25 @@ export default {
 
     },
     methods: {
+        renderContent (h, { root, node, data }) {
+           log('root', root)
+            return h('span', {
+                class: "color-text",
+                style: {
+                    display: 'inline-block',
+                    width: '100%'
+                }
+            }, data.title)
+        },
         loadData (item, callback) {
             log('item', item)
             setTimeout(() => {
                 let data = [{
                     id: 0,
-                    title: '我的大女儿',
+                    title: '关闭状态',
                     loading: false,
+                    disable: true,
+
                     children: [{
                         id: 3,
                         title: '漂亮懂事',
@@ -59,6 +75,8 @@ export default {
                     id: 1,
                     title: '我的大弟',
                     loading: false,
+                    selected: true,
+
                     expand: true,
                     children: [{
                         id: 2,
@@ -111,5 +129,10 @@ export default {
 <style lang="scss" scoped>
     .search-transfer {
         position: relative;
+    }
+
+    .color-text {
+        color: #7c8e8e;
+        cursor: not-allowed;
     }
 </style>
