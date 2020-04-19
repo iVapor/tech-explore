@@ -11,28 +11,22 @@
 
 <script>
 import { log } from "@/utils/tools";
+import TreeNode from "./TreeNode";
 
 export default {
     name: "SearchTransfer",
     components: {
+        TreeNode,
     },
     props: {
     },
     data() {
         return {
             data3: [{
-                id: 11,
-                title: '你是',
-                loading: true,
-                children: [],
-
-            }, {
-                id: 12,
-                title: '被折叠项',
-                disableCheckbox: true,
+                id: 0,
+                title: '',
                 loading: false,
-                expand: true,
-                children: []
+                children: [],
             }, ],
         };
     },
@@ -47,14 +41,16 @@ export default {
     },
     methods: {
         renderContent (h, { root, node, data }) {
+            log('node', node)
            log('root', root)
-            return h('span', {
-                class: "color-text",
-                style: {
-                    display: 'inline-block',
-                    width: '100%'
+            return h(TreeNode, {
+                props: {
+                    root: root,
+                    source: this.data3,
+                    node: node,
+                    data: data,
                 }
-            }, data.title)
+            })
         },
         loadData (item, callback) {
             log('item', item)
@@ -102,8 +98,10 @@ export default {
             this.$ajaxGet(url)
                 .then(res => {
                     if (res && res.code === 10000) {
+
                         let resData = res.data
-                        log('resData', resData)
+
+                        this.renderPage(resData)
                     }
                     this.loading = false
                 })
@@ -111,8 +109,23 @@ export default {
                     log(err);
                 });
         },
+        renderPage(data) {
+            let tempList = []
+            data.forEach(item => {
+                let format = {
+                    id: item.id,
+                    title: item.name,
+                    disableCheckbox: true,
+                    loading: false,
+                    expand: false,
+                    parentId: item.parentId,
+                    children: []
+                }
+                tempList.push(format)
+            })
+            this.data3 = tempList
+        },
         hideOtherTree(current) {
-            log('current', current)
             this.foldSibling(current.id)
         },
         foldSibling(activeId) {
@@ -120,8 +133,15 @@ export default {
             if (activeId === 11) {
                 this.data3[1].expand = false
             }
+            this.setSibling(this.data3, activeId)
+        },
+        setSibling(source, activeId) {
+            for(let i = 0; i < source.length; i++) {
 
-        }
+            }
+
+        },
+
     },
 }
 </script>
