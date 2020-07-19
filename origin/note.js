@@ -12,6 +12,18 @@ const findParent = (arr) => {
     return index
 }
 
+const findNodeByLevel = (arr, level) => {
+    let index = 0
+    for(let i = 0; i < arr.length; i++) {
+        let cell = arr[i]
+        if (cell.parent_id === level) {
+            index = i
+        }
+    }
+
+    return index
+}
+
 const createChildren = (arr, mark) => {
     let pack = []
     for(let i = 0; i < arr.length; i++) {
@@ -24,28 +36,37 @@ const createChildren = (arr, mark) => {
     return pack
 }
 
-const tree = (arr) => {
-    // let treeNode = createTreeNode(arr, 0)
+const hasChild = (arr, level) => {
+    return arr.some(item => {
+        return item.parent_id === level
+    })
+}
+
+const createTree = (arr, level) => {
     if (arr.length === 0) {
         return {}
     }
-    let parentIndex = findParent(arr)
-    let parentNode = arr[parentIndex]
-
-    let parent = {
-        node_id: parentNode.node_id,
-        parent: 0,
-        name: parentNode.name,
+    let model = {
+        node_id: 1,
+        parent: level,
+        name: '',
         children: [],
     }
-    if (arr.length === 1) {
-        return parent
-    } else {
-        let children = createChildren(arr, 1)
-        parent.children = children
-    }
 
-    return parent
+    let index = findNodeByLevel(arr, level)
+    Object.assign(model, arr[index])
+
+    let existChild = hasChild(arr, level + 1)
+    if (existChild) {
+        let child = createTree(arr, level + 1)
+        model.children = child
+    }
+    return model
+}
+
+const tree = (arr) => {
+    let treeNode = createTree(arr, 0)
+    return treeNode
 }
 
 const testTree = () => {
@@ -306,9 +327,9 @@ const testTree = () => {
         ],
     }
 
-    // ensure(equals(tree(l1), e1), 'test tree 1')
+    ensure(equals(tree(l1), e1), 'test tree 1')
     // ensure(equals(tree(l2), e2), 'test tree 2')
-    ensure(equals(tree(l3), e3), 'test tree 3')
+    // ensure(equals(tree(l3), e3), 'test tree 3')
     // ensure(equals(tree(l4), e4), 'test tree 4')
     // ensure(equals(tree(l5), e5), 'test tree 5')
     // ensure(equals(tree(l6), e6), 'test tree 6')
@@ -329,35 +350,33 @@ const judgeChildren = (first, second) => {
     return empty
 }
 
-const equals = (first, second) => {
-    log('first', first)
-    log('second', second)
-    let firstKeys = Object.keys(first)
-    let equal = false
-    let count = 0
+const compareObjKey = (firstKeys, secondKeys) => {
+    let equalLength = firstKeys.length === secondKeys.length
+    let key = firstKeys.every((item, index) => {
+        return item === secondKeys[index]
+    })
 
-    let equalChildren
-    for(let i = 0; i < firstKeys.length; i++) {
-        let key = firstKeys[i]
-        if (first[key] === second[key]) {
-            count++
-        } else if (key === 'children') {
-            equalChildren = judgeChildren(first.children, second.children)
-            return equalChildren
-        } else {
-            return false
-        }
-    }
-
-    if (count === firstKeys.length) {
-        equal =  equalChildren
-    } else {
-        equal =  false
-    }
-    return equal
+    return equalLength && key
 }
+const equals = (first, second) => {
+    let firstKeys = Object.keys(first)
+    let secondKeys = Object.keys(second)
 
+    // 先比较 key
+    let keyEqual = compareObjKey(firstKeys, secondKeys)
+    if (!keyEqual) {
+        return false
+    }
 
+    let value = firstKeys.every((item) => {
+        return first[item] === second[item]
+    })
+    if (!value) {
+        return false
+    }
+
+    return true
+}
 
 const test = () => {
     let a = {
