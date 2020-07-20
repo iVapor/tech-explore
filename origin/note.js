@@ -37,9 +37,14 @@ const createChildren = (arr, mark) => {
 }
 
 const hasChild = (arr, level) => {
-    return arr.some(item => {
-        return item.parent_id === level
+    let childIndex = []
+    arr.forEach((item, index) => {
+        if (item.parent_id === level) {
+            childIndex.push(index)
+        }
     })
+
+    return childIndex
 }
 
 const createTree = (arr, level) => {
@@ -54,13 +59,23 @@ const createTree = (arr, level) => {
     }
 
     let index = findNodeByLevel(arr, level)
-    Object.assign(model, arr[index])
+    let node = arr[index]
+    Object.assign(model, {
+        node_id: node.node_id,
+        name: node.name,
+    })
 
-    let existChild = hasChild(arr, level + 1)
-    if (existChild) {
-        let child = createTree(arr, level + 1)
+    let childIndex = hasChild(arr, level + 1)
+    if (childIndex.length > 0) {
+        let child = []
+        childIndex.forEach(nodeIndex => {
+            let modal = createTree(arr.slice(nodeIndex), level + 1)
+            child.push(modal)
+        })
+
         model.children = child
     }
+    log('model', model)
     return model
 }
 
@@ -327,9 +342,9 @@ const testTree = () => {
         ],
     }
 
-    ensure(equals(tree(l1), e1), 'test tree 1')
+    // ensure(equals(tree(l1), e1), 'test tree 1')
     // ensure(equals(tree(l2), e2), 'test tree 2')
-    // ensure(equals(tree(l3), e3), 'test tree 3')
+    ensure(equals(tree(l3), e3), 'test tree 3')
     // ensure(equals(tree(l4), e4), 'test tree 4')
     // ensure(equals(tree(l5), e5), 'test tree 5')
     // ensure(equals(tree(l6), e6), 'test tree 6')
@@ -358,7 +373,17 @@ const compareObjKey = (firstKeys, secondKeys) => {
 
     return equalLength && key
 }
+
+const equalArray = (source, object) => {
+    let equal = source.every((item, index) => {
+        return equals(item, object[index])
+    })
+
+    return equal
+}
+
 const equals = (first, second) => {
+    log('in equals\n', 'first\n', first, '\nsecond\n', second)
     let firstKeys = Object.keys(first)
     let secondKeys = Object.keys(second)
 
@@ -369,8 +394,19 @@ const equals = (first, second) => {
     }
 
     let value = firstKeys.every((item) => {
-        return first[item] === second[item]
+        let firstItem = first[item]
+        let secondItem = second[item]
+        let isArray = Array.isArray(firstItem)
+
+        if (isArray) {
+            let children = equalArray(firstItem, secondItem)
+            return children
+        } else {
+            return first[item] === second[item]
+        }
+
     })
+    log('value', value)
     if (!value) {
         return false
     }
