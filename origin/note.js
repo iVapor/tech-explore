@@ -47,6 +47,18 @@ const hasChild = (arr, level) => {
     return childIndex
 }
 
+const createNodeIndex = (arr, index, level) => {
+    let node = arr[index]
+    let model = {
+        node_id: node.node_id,
+        parent: level,
+        name: node.name,
+        children: [],
+    }
+
+    return model
+}
+
 const createTree = (arr, level) => {
     if (arr.length === 0) {
         return {}
@@ -69,13 +81,13 @@ const createTree = (arr, level) => {
     if (childIndex.length > 0) {
         let child = []
         childIndex.forEach(nodeIndex => {
-            let modal = createTree(arr.slice(nodeIndex), level + 1)
+            let modal = createNodeIndex(arr, nodeIndex, level + 1)
             child.push(modal)
         })
 
         model.children = child
     }
-    log('model', model)
+
     return model
 }
 
@@ -344,8 +356,8 @@ const testTree = () => {
 
     // ensure(equals(tree(l1), e1), 'test tree 1')
     // ensure(equals(tree(l2), e2), 'test tree 2')
-    ensure(equals(tree(l3), e3), 'test tree 3')
-    // ensure(equals(tree(l4), e4), 'test tree 4')
+    // ensure(equals(tree(l3), e3), 'test tree 3')
+    ensure(equals(tree(l4), e4), 'test tree 4')
     // ensure(equals(tree(l5), e5), 'test tree 5')
     // ensure(equals(tree(l6), e6), 'test tree 6')
     // ensure(equals(tree(l7), e7), 'test tree 7')
