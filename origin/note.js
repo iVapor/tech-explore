@@ -357,8 +357,8 @@ const testTree = () => {
     // ensure(equals(tree(l1), e1), 'test tree 1')
     // ensure(equals(tree(l2), e2), 'test tree 2')
     // ensure(equals(tree(l3), e3), 'test tree 3')
-    ensure(equals(tree(l4), e4), 'test tree 4')
-    // ensure(equals(tree(l5), e5), 'test tree 5')
+    // ensure(equals(tree(l4), e4), 'test tree 4')
+    ensure(equals(tree(l5), e5), 'test tree 5')
     // ensure(equals(tree(l6), e6), 'test tree 6')
     // ensure(equals(tree(l7), e7), 'test tree 7')
 }
@@ -387,6 +387,10 @@ const compareObjKey = (firstKeys, secondKeys) => {
 }
 
 const equalArray = (source, object) => {
+    if (source.length !== object.length) {
+        return false
+    }
+    log('equalArray', '---source\n', source, '\nobject\n', object, 'end\n')
     let equal = source.every((item, index) => {
         return equals(item, object[index])
     })
@@ -418,7 +422,7 @@ const equals = (first, second) => {
         }
 
     })
-    log('value', value)
+
     if (!value) {
         return false
     }
