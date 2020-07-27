@@ -37,8 +37,6 @@ const createChildren = (arr, mark) => {
 }
 
 const hasChild = (arr, level) => {
-    log('in hasChild, arr', arr)
-    log('level', level)
     let childIndex = []
     arr.forEach((item, index) => {
         if (item.parent_id === level) {
@@ -345,7 +343,7 @@ const testTree = () => {
                     {
                         node_id: 4,
                         parent: 2,
-                        name: 'n3',
+                        name: 'n4',
                         children: [
                             {
                                 node_id: 6,
