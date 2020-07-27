@@ -280,7 +280,7 @@ const testTree = () => {
                     {
                         node_id: 4,
                         parent: 2,
-                        name: 'n3',
+                        name: 'n4',
                         children: [],
                     }
                 ],
@@ -377,9 +377,9 @@ const testTree = () => {
     // ensure(equals(tree(l2), e2), 'test tree 2')
     // ensure(equals(tree(l3), e3), 'test tree 3')
     // ensure(equals(tree(l4), e4), 'test tree 4')
-    ensure(equals(tree(l5), e5), 'test tree 5')
+    // ensure(equals(tree(l5), e5), 'test tree 5')
     // ensure(equals(tree(l6), e6), 'test tree 6')
-    // ensure(equals(tree(l7), e7), 'test tree 7')
+    ensure(equals(tree(l7), e7), 'test tree 7')
 }
 
 const ensure = (condition, message) => {
