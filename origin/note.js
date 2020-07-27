@@ -37,6 +37,8 @@ const createChildren = (arr, mark) => {
 }
 
 const hasChild = (arr, level) => {
+    log('in hasChild, arr', arr)
+    log('level', level)
     let childIndex = []
     arr.forEach((item, index) => {
         if (item.parent_id === level) {
@@ -49,6 +51,7 @@ const hasChild = (arr, level) => {
 
 const createNodeIndex = (arr, index, level) => {
     let node = arr[index]
+    log('in createNodeIndex, node', node)
     let model = {
         node_id: node.node_id,
         parent: level,
@@ -59,7 +62,14 @@ const createNodeIndex = (arr, index, level) => {
     return model
 }
 
-const createTree = (arr, level) => {
+/**
+ * 创建树
+ * @param arr
+ * @param level
+ * @param start 遍历数组的起点
+ * @returns {{}|{parent: *, children: [], name: string, node_id: number}}
+ */
+const createTree = (arr, level, start ) => {
     if (arr.length === 0) {
         return {}
     }
@@ -70,21 +80,29 @@ const createTree = (arr, level) => {
         children: [],
     }
 
-    let index = findNodeByLevel(arr, level)
+    let index
+    if (start === 'empty') {
+        index = findNodeByLevel(arr, level)
+    } else {
+        index = start
+    }
+
     let node = arr[index]
     Object.assign(model, {
         node_id: node.node_id,
         name: node.name,
     })
 
-    let childIndex = hasChild(arr, level + 1)
+    let childIndex = hasChild(arr, node.node_id)
     if (childIndex.length > 0) {
         let child = []
-        childIndex.forEach(nodeIndex => {
-            let modal = createNodeIndex(arr, nodeIndex, level + 1)
-            child.push(modal)
-        })
 
+        for (let i = 0; i < childIndex.length; i++) {
+            let nodeIndex = childIndex[i]
+            let modal = createTree(arr, node.node_id, nodeIndex)
+            child.push(modal)
+
+        }
         model.children = child
     }
 
@@ -92,7 +110,8 @@ const createTree = (arr, level) => {
 }
 
 const tree = (arr) => {
-    let treeNode = createTree(arr, 0)
+    let treeNode = createTree(arr, 0, 'empty')
+    log('treeNode', treeNode)
     return treeNode
 }
 
@@ -208,7 +227,7 @@ const testTree = () => {
                     {
                         node_id: 4,
                         parent: 2,
-                        name: 'n3',
+                        name: 'n4',
                         children: [],
                     }
                 ],
@@ -399,7 +418,7 @@ const equalArray = (source, object) => {
 }
 
 const equals = (first, second) => {
-    log('in equals\n', 'first\n', first, '\nsecond\n', second)
+    log('second\n', second)
     let firstKeys = Object.keys(first)
     let secondKeys = Object.keys(second)
 
