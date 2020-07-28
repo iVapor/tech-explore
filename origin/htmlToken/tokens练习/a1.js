@@ -22,38 +22,65 @@ const isSpace = (char) => {
     return char === ' '
 }
 
-const numberEnd = () => {
+const numberEnd = (s, index) => {
+    let end = index
+    for (let i = index; i < s.length; i++) {
+        let next = s[i + 1]
 
+        if (isSpace(next)) {
+            log('next', next)
+            end = i
+            break
+        }
+    }
+
+    return end
 }
 
 const stringEnd = (s, index) => {
     let end = index
     for (let i = index; i < s.length; i++) {
-        let a = s[i]
-        
+        let next = s[i + 1]
+        if (isSpace(next)) {
+            end = i
+            break
+        }
     }
+
+    log('edn', end)
+    return end
 }
 
 const numbers = function(code) {
-    let s = code
+    let s = code + ' '
     let i = 0
+    let container = []
 
     // 用下标 i 循环遍历字符串 s
     // 如果 s[i] 是空格则往前走
     // 如果是字母，就调用自己实现的 stringEnd(s, i) 函数找到并返回空格的下标
     // 如果是数字，则调用自己实现的 numberEnd(s, i) 函数找到并返回空格的下标
-    for (let i = 0; i < s.length; i++) {
+    for (; i < s.length; i++) {
         let a = s[i]
         let spaceIndex
 
+        log('in if', a,)
         if (isSpace(a)) {
             continue
         } else if (isNumber(a)) {
             spaceIndex = numberEnd(s, i)
+            log('spaceIndex', spaceIndex)
         } else if (isString(a)) {
-
+            let next = stringEnd(s, i)
+            i = next
+            continue
         }
+
+        let cell = s.slice(i, spaceIndex)
+        container.push(cell)
     }
+
+    return container
     // 找结尾下标的函数，如果遇到空格则返回空格的下标
     // 具体下标怎么定位你自己纸笔来推算
 
