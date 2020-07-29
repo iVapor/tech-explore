@@ -1,19 +1,20 @@
 <template>
 <div id="app">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <SearchTransfer />
+    <OrderTable />
 </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue';
-import SearchTransfer from "@/components/SearchTransfer";
+// import SearchTransfer from "@/components/SearchTransfer";
+import OrderTable from "@/components/OrderTable";
 
 export default {
     name: 'App',
     components: {
         HelloWorld,
-        SearchTransfer,
+        OrderTable,
     }
 }
 </script>
