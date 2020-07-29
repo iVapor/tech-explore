@@ -29,7 +29,7 @@ const numberEnd = (s, index) => {
 
         if (isSpace(next)) {
             log('next', next)
-            end = i
+            end = i + 1
             break
         }
     }
@@ -42,12 +42,11 @@ const stringEnd = (s, index) => {
     for (let i = index; i < s.length; i++) {
         let next = s[i + 1]
         if (isSpace(next)) {
-            end = i
+            end = i + 1
             break
         }
     }
 
-    log('edn', end)
     return end
 }
 
@@ -64,12 +63,11 @@ const numbers = function(code) {
         let a = s[i]
         let spaceIndex
 
-        log('in if', a,)
         if (isSpace(a)) {
+            i++
             continue
         } else if (isNumber(a)) {
             spaceIndex = numberEnd(s, i)
-            log('spaceIndex', spaceIndex)
         } else if (isString(a)) {
             let next = stringEnd(s, i)
             i = next
@@ -77,6 +75,7 @@ const numbers = function(code) {
         }
 
         let cell = s.slice(i, spaceIndex)
+        i = spaceIndex
         container.push(cell)
     }
 
