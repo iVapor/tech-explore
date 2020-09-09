@@ -5,7 +5,7 @@ const setUrl = (location) => {
     log('ele', ele)
     let head = 'https://m.amap.com/navi/'
     let key = '05ff844ff688731c873eee04ee54d376'
-    let url = `https://m.amap.com/navi/?dest=120.12,30.16&destName=火车东站&hideRouteIcon=1&key=${ key }`
+    let url = `//m.amap.com/around/?locations=116.470098,39.992838&keywords=博物馆&defaultIndex=1&defaultView=&searchRadius=5000&key=05ff844ff688731c873eee04ee54d376`
     // url = `https://m.amap.com/navi/?dest=${location}&destName=阜通西&hideRouteIcon=1&key=${ key }`
     log('url', url)
     ele.src = url
