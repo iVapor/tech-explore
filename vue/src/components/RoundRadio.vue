@@ -10,8 +10,22 @@
 </template>
 
 <script>
-import { log } from "@/utils/tools";
 
+/**
+ * 圆角的类似 radio 的组件
+ * props: {
+ *   数据源 dataList: [{
+        label: '全部',
+        value: '',
+    }],
+    defaultSelect 默认值
+ * }
+ * 用法：
+ *  <RoundRadio
+         :dataList="list"
+         @select="selectRadio"
+         :defaultSelect="''" />
+ */
 export default {
     name: "RoundRadio",
     components: {},
@@ -27,9 +41,12 @@ export default {
     computed: {
 
     },
-    watch: {},
+    watch: {
+        defaultSelect(updateValue) {
+            this.select = updateValue
+        }
+    },
     created() {
-        log('dataList', this.dataList)
     },
     mounted() {
 
