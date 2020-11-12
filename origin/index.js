@@ -127,6 +127,7 @@ const __main = () => {
     log('in __main')
     let data = createCascadeFormat(a, 'title', 'orgId' )
     log('data', data)
+    dowloadImg()
 }
 
 __main()

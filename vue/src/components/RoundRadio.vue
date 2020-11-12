@@ -22,16 +22,17 @@
  * }
  * 用法：
  *  <RoundRadio
-         :dataList="list"
-         @select="selectRadio"
-         :defaultSelect="''" />
+ :dataList="list"
+ @select="selectRadio"
+ :defaultSelect="''" />
+ * 事件: select，返回值是选中的值
  */
 export default {
     name: "RoundRadio",
     components: {},
     props: {
         dataList: Array,
-        defaultSelect: String,
+        defaultSelect: [String, Number],
     },
     data() {
         return {
@@ -58,7 +59,7 @@ export default {
         changeRadio(value) {
             this.select = value
             this.$emit('select', this.select)
-        }
+        },
     },
 }
 </script>

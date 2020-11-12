@@ -2,18 +2,19 @@
 <div id="app">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <OrderTable v-if="false" />
-    <RoundRadio
-        :dataList="list"
-        @select="selectRadio"
-        :defaultSelect="'pending'" />
+    <ChangeTableFilter />
 </div>
 </template>
 
 <script>
+import { log } from "./utils/tools";
+
 import HelloWorld from './components/HelloWorld.vue';
 // import SearchTransfer from "@/components/SearchTransfer";
 import OrderTable from "@/components/OrderTable";
 import RoundRadio from "./components/RoundRadio";
+import DownImg from "./components/DownImg";
+import ChangeTableFilter from "./components/table/ChangeTableFilter";
 
 export default {
     name: 'App',
@@ -21,6 +22,8 @@ export default {
         HelloWorld,
         OrderTable,
         RoundRadio,
+        DownImg,
+        ChangeTableFilter,
     },
     data() {
         return {
@@ -33,13 +36,23 @@ export default {
                     label: '待审批',
                     value: 'pending',
                 },
+                {
+                    label: '已审批',
+                    value: 'approve',
+                },
             ],
+            defaultValue: 'pending',
         };
     },
     methods: {
         selectRadio(data) {
             console.log('selectRadio data', data)
-        }
+            this.defaultValue = data
+        },
+        changeRadio() {
+            log('this.defaultValue ', this.defaultValue )
+            this.defaultValue = this.defaultValue === '' ? 'pending' : ''
+        },
     }
 }
 </script>
