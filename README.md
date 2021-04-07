@@ -4,5 +4,6 @@
 1. Explore new technique.
 
 ## Project Description
-1. Vue project is under directory Vue.
+1. Vue project is under directory Vue. It runs with iView.
+
 2. Origin JavaScript is under directory origin.
