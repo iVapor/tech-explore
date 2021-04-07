@@ -1,17 +1,20 @@
 <template>
     <div id="app">
         <a-button type="primary">Primary</a-button>
+        <TreeSelectRoot />
         <HelloWorld msg="Welcome to Your Vue.js App"/>
     </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import TreeSelectRoot from "./components/TreeSelectRoot";
 
 export default {
     name: 'App',
     components: {
-        HelloWorld
+        HelloWorld,
+        TreeSelectRoot
     }
 }
 </script>
