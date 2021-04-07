@@ -2,7 +2,8 @@
 <div id="app">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <OrderTable v-if="false" />
-    <ChangeTableFilter />
+    <ChangeTableFilter v-if="false" />
+    <TwoBlock />
 </div>
 </template>
 
@@ -12,18 +13,18 @@ import { log } from "./utils/tools";
 import HelloWorld from './components/HelloWorld.vue';
 // import SearchTransfer from "@/components/SearchTransfer";
 import OrderTable from "@/components/OrderTable";
-import RoundRadio from "./components/RoundRadio";
-import DownImg from "./components/DownImg";
 import ChangeTableFilter from "./components/table/ChangeTableFilter";
 
+// import CompanyLayout from "@/components/CompanyLayout";
+import TwoBlock from "@/components/TwoBlock";
 export default {
     name: 'App',
     components: {
         HelloWorld,
         OrderTable,
-        RoundRadio,
-        DownImg,
         ChangeTableFilter,
+        // CompanyLayout,
+        TwoBlock
     },
     data() {
         return {
