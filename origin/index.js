@@ -123,11 +123,30 @@ const createCascadeFormat = (list, labelKey, valueKey) => {
     return base
 }
 
+function validateContact(list) {
+    let p = list.some(i => {
+        let { relation, contactName, contactPhone } = i
+        if (relation !== '' || contactName !== '' || contactPhone !== '') {
+            return !relation || !contactName || !contactPhone
+        }
+    })
+    return p
+}
 const __main = () => {
     log('in __main')
     let data = createCascadeFormat(a, 'title', 'orgId' )
     log('data', data)
-    dowloadImg()
+
+    let list = [
+        {
+            "relation": 2,
+            "contactName": "",
+            "contactPhone": "",
+            "status": true
+        }
+    ]
+    let v = validateContact(list)
+    log('v', v)
 }
 
 __main()

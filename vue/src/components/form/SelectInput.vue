@@ -43,7 +43,7 @@
 <script>
     /**
      * 自动排序使用 flex order 方案。
-     * 因为 view Select 没有监听值，导致排序后的值没有更新。
+     * 因为 view Select 没有监听值，导致排序后的值没有更。
      */
     import { log } from "@/utils/tools";
     export default {
