@@ -3,7 +3,7 @@
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <OrderTable v-if="false" />
     <ChangeTableFilter v-if="false" />
-    <TwoBlock />
+    <SelectInput />
 </div>
 </template>
 
@@ -16,7 +16,8 @@ import OrderTable from "@/components/OrderTable";
 import ChangeTableFilter from "./components/table/ChangeTableFilter";
 
 // import CompanyLayout from "@/components/CompanyLayout";
-import TwoBlock from "@/components/TwoBlock";
+// import TwoBlock from "@/components/TwoBlock";
+import SelectInput from "./components/form/SelectInput";
 export default {
     name: 'App',
     components: {
@@ -24,7 +25,8 @@ export default {
         OrderTable,
         ChangeTableFilter,
         // CompanyLayout,
-        TwoBlock
+        // TwoBlock,
+        SelectInput,
     },
     data() {
         return {
@@ -57,7 +59,9 @@ export default {
     }
 }
 </script>
-
+<style lang="scss">
+@import url('./assets/scss/common.scss');
+</style>
 <style>
     #app {
         font-family: Avenir, Helvetica, Arial, sans-serif;

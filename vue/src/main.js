@@ -6,10 +6,12 @@ import {
   axios_get,
   axios_post
 } from './utils/axios';
+import lodash from "lodash";
 
 Vue.use(ViewUI);
 Vue.prototype.$ajaxGet = axios_get;
 Vue.prototype.$ajaxPost = axios_post;
+Vue.prototype.$_ = lodash;
 
 Vue.config.productionTip = false
 

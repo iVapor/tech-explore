@@ -1,0 +1,281 @@
+@charset "UTF-8";
+/*!*********************
+ *@name style
+ *@author Jo.gel
+ *@date 2019/3/19 0019
+ ***********************/
+/*color*/
+.color-table-black {
+  color: #171725;
+}
+.color-primary {
+  color: #79aeff;
+}
+.color-danger {
+  color: #fc5a5a;
+}
+.color-gray {
+  color: #92929d;
+}
+.color-warning {
+  color: #f8d177;
+}
+
+/*fontSize*/
+.f12 {
+  font-size: 12px;
+}
+.f13 {
+  font-size: 13px;
+}
+.f18 {
+  font-size: 18px;
+}
+
+/*width*/
+.w40 {
+  width: 40px !important;
+}
+
+.w60 {
+  width: 60px !important;
+}
+
+.w80 {
+  width: 80px !important;
+}
+
+.w90 {
+  width: 90px !important;
+}
+
+.w96 {
+  width: 96px !important;
+}
+.w100 {
+  width: 100px !important;
+}
+.w110 {
+  width: 110px !important;
+}
+
+.w120 {
+  width: 120px !important;
+}
+
+.w150 {
+  width: 150px !important;
+}
+
+.w160 {
+  width: 150px !important;
+}
+
+.w200 {
+  width: 200px !important;
+}
+
+.w220 {
+  width: 220px !important;
+}
+
+.w240 {
+  width: 240px !important;
+}
+.w250 {
+  width: 250px !important;
+}
+
+.w260 {
+  width: 260px !important;
+}
+
+.w280 {
+  width: 280px !important;
+}
+
+.w300 {
+  width: 300px !important;
+}
+
+.w100p {
+  width: 100%;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/*margin*/
+.mt-10 {
+  margin-top: 10px !important;
+}
+.mt-20 {
+  margin-top: 20px !important;
+}
+.mt-40 {
+  margin-top: 40px !important;
+}
+.mr-5 {
+  margin-right: 5px !important;
+}
+
+.mr-10 {
+  margin-right: 10px !important;
+}
+.mr-20 {
+  margin-right: 20px !important;
+}
+
+.ml-5 {
+  margin-left: 5px !important;
+}
+
+.ml-10 {
+  margin-left: 10px !important;
+}
+.ml-20 {
+  margin-left: 20px !important;
+}
+
+.mb-10 {
+  margin-bottom: 10px !important;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.no-mb {
+  margin-bottom: 0 !important;
+}
+
+/*padding*/
+.pr-10 {
+  padding-right: 10px;
+}
+
+.tree-wrap {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  max-height: 320px;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
+
+.member-table-span {
+  font-size: 12px;
+  color: #9aa8b8;
+}
+
+.member-table-strong {
+  color: #3e4552;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.member-table-span + .member-table-span {
+  margin-left: 10px;
+}
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.mini-block-narrow {
+  margin-top: 8px;
+}
+
+.middle-block-narrow {
+  margin-top: 20px;
+}
+
+.big-block-narrow {
+  margin-top: 24px;
+}
+
+.huge-block-narrow {
+  margin-top: 40px;
+}
+
+.action-text {
+  cursor: pointer;
+  color: #70aaff;
+}
+
+.color-text {
+  color: #70aaff;
+}
+
+.button-gap {
+  margin-right: 8px;
+}
+
+.view-footer {
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  border-top: 1px solid #e8eaec;
+  padding: 16px 16px 0;
+  margin-left: -16px;
+  margin-right: -16px;
+
+  .text-narrow {
+    margin-right: 16px;
+  }
+}
+
+.address-style {
+  color: #171725;
+  display: inline-block;
+  width: 230px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.time-style {
+  display: inline-block;
+  color: #999;
+}
+
+.ant-input-affix-wrapper .ant-input-suffix {
+  color: #b5b5be !important;
+}
+$primary-color: #70aaff;
+
+.public-content {
+  background: #ffffff;
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+  padding: 24px 24px 20px;
+  box-sizing: border-box;
+}
+
+/*两行省略*/
+.two-ellipsis {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+}
+
+/*flex*/
+.flex {
+  display: flex;
+}
+.f-jc-sb {
+  justify-content: space-between;
+}

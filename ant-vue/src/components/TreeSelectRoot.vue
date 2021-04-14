@@ -1,28 +1,45 @@
 <template>
     <div>
-        <a-tree-select
-            show-search
-            style="width: 300px"
-            :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
-            placeholder="Please select"
-            allow-clear
+<!--        <a-tree-select-->
+<!--            show-search-->
+<!--            style="width: 300px"-->
+<!--            :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"-->
+<!--            placeholder="Please select"-->
+<!--            allow-clear-->
 
+<!--            :tree-data="treeData"-->
+<!--            tree-checkable-->
+<!--            tree-default-expand-all-->
+<!--            :filterTreeNode="filterTree"-->
+<!--            @change="treeChange"-->
+<!--        >-->
+<!--&lt;!&ndash;            <template slot="title" slot-scope="{ key, addInfo, titleCopy }" style="color: #08c">&ndash;&gt;-->
+<!--&lt;!&ndash;                <p>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <span>{{ titleCopy }}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <span style="margin-left: 40px; color: orange;">{{ addInfo }}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                </p>&ndash;&gt;-->
+<!--&lt;!&ndash;            </template>&ndash;&gt;-->
+<!--        </a-tree-select>-->
+<!--        <div class="yellow">-->
+<!--            {{ displayNode }}-->
+<!--        </div>-->
+        <a-tree-select
+            v-model="value"
+            style="width: 300px"
             :tree-data="treeData"
             tree-checkable
-            tree-default-expand-all
-            :filterTreeNode="filterTree"
+            :treeNodeLabelProp="'label'"
+            :show-checked-strategy="SHOW_PARENT"
+            search-placeholder="Please select"
             @change="treeChange"
         >
-<!--            <template slot="title" slot-scope="{ key, addInfo, titleCopy }" style="color: #08c">-->
-<!--                <p>-->
-<!--                    <span>{{ titleCopy }}</span>-->
-<!--                    <span style="margin-left: 40px; color: orange;">{{ addInfo }}</span>-->
-<!--                </p>-->
-<!--            </template>-->
+            <template slot="custom" slot-scope="item" style="color: #08c">
+                <p>
+                    <span>{{ item.value }}</span>
+                    <span style="margin-left: 20px">11㎡</span>
+                </p>
+            </template>
         </a-tree-select>
-        <div class="yellow">
-            {{ displayNode }}
-        </div>
     </div>
 
 </template>
