@@ -2,8 +2,9 @@
 <div id="app">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <OrderTable v-if="false" />
-    <ChangeTableFilter v-if="false" />
-    <SelectInput />
+<!--    <ChangeTableFilter v-if="false" />-->
+<!--    <SelectInput />-->
+    <PayTable />
 </div>
 </template>
 
@@ -13,20 +14,23 @@ import { log } from "./utils/tools";
 import HelloWorld from './components/HelloWorld.vue';
 // import SearchTransfer from "@/components/SearchTransfer";
 import OrderTable from "@/components/OrderTable";
-import ChangeTableFilter from "./components/table/ChangeTableFilter";
+// import ChangeTableFilter from "./components/table/ChangeTableFilter";
 
 // import CompanyLayout from "@/components/CompanyLayout";
 // import TwoBlock from "@/components/TwoBlock";
 import SelectInput from "./components/form/SelectInput";
+import PayTable from "./components/pay/PayTable";
+
 export default {
     name: 'App',
     components: {
         HelloWorld,
         OrderTable,
-        ChangeTableFilter,
+        // ChangeTableFilter,
         // CompanyLayout,
         // TwoBlock,
-        SelectInput,
+        // SelectInput,
+        PayTable,
     },
     data() {
         return {
