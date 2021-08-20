@@ -1,0 +1,13 @@
+{
+  "bundleName": "sc_ 2015",
+  "refreshEnable": true,
+  "refreshProtocol": "scheme://open/refresh",
+  "autoPlay": true,
+  "nav": {
+    "enable": true,
+    "bgColor": "#FFFFF"
+
+  }
+}
+
+
