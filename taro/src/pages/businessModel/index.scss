@@ -1,0 +1,15 @@
+.page {
+    background-color: white;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.flex-two {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-gap {
+    margin-right: 8px;
+}
+
