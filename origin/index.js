@@ -132,21 +132,62 @@ function validateContact(list) {
     })
     return p
 }
+
+const learnIntersection = () => {
+    // 获取dom
+    const ulDom = document.querySelector('ul');
+    const MAX_LENGTH = 10;
+    // 渲染
+    function render() {
+        let html = '';
+        for (let i = 0; i < MAX_LENGTH; i++) {
+            html += `
+            <li>
+                <img class="loading" src="../images/loading.png" alt="">
+                <img class="img" src="" alt="" data-src='../images/image${(i % 5) + 1}.jpg'>
+            </li>`;
+        }
+        ulDom.insertAdjacentHTML('beforeend', html);
+    }
+    render();
+
+    const imgDomList = document.querySelectorAll('.img');
+
+    // 交叉观察器
+    const intersectionObserver = new IntersectionObserver((entires) => {
+        entires.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // 模拟异步加载
+                setTimeout(() => {
+                    entry.target.src = entry.target.dataset.src;
+                    entry.target.previousElementSibling.remove();
+                    intersectionObserver.unobserve(entry.target);
+                }, 600);
+            }
+        })
+    }, { threshold: 0.25 });
+
+    [...imgDomList].forEach((item) => {
+        intersectionObserver.observe(item);
+    });
+}
 const __main = () => {
     log('in __main')
-    let data = createCascadeFormat(a, 'title', 'orgId' )
-    log('data', data)
+    // let data = createCascadeFormat(a, 'title', 'orgId' )
+    // log('data', data)
+    //
+    // let list = [
+    //     {
+    //         "relation": 2,
+    //         "contactName": "",
+    //         "contactPhone": "",
+    //         "status": true
+    //     }
+    // ]
+    // let v = validateContact(list)
+    // log('v', v)
 
-    let list = [
-        {
-            "relation": 2,
-            "contactName": "",
-            "contactPhone": "",
-            "status": true
-        }
-    ]
-    let v = validateContact(list)
-    log('v', v)
+    learnIntersection()
 }
 
 __main()
