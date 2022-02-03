@@ -9,7 +9,7 @@ const log = console.log.bind(console)
  * @returns {Promise<void>}
  */
 async function pickFile() {
-    // store a reference to our file handle
+    // 存储文件 handle 的引用
     let fileHandle;
     // open file picker
     // fileHandle 是一个对象, 有两个属性
@@ -24,7 +24,6 @@ async function pickFile() {
     read.onloadend = function(){
         console.log(read.result);
     }
-
 }
 
 /**
@@ -34,23 +33,20 @@ async function pickFile() {
  */
 async function returnPathDirectories(directoryHandle) {
 
-    // Get a file handle by showing a file picker:
+    // 打开一个文件选择
     const [handle] = await self.showOpenFilePicker();
     if (!handle) {
-        // User cancelled, or otherwise failed to open a file.
+        // 用户取消选择
         return;
     }
 
-    // Check if handle exists inside directory our directory handle
+    // 检查目录是否存在
     const relativePaths = await directoryHandle.resolve(handle);
-    log('relativePaths', relativePaths)
     if (relativePaths === null) {
-        // Not inside directory handle
+        // 没有目录
     } else {
-        // relativePaths is an array of names, giving the relative path
-
+        // relativePaths 是一个数组，包含展示的文件名和目录
         for (const name of relativePaths) {
-            // log each entry
             console.log(name);
         }
     }
@@ -71,21 +67,19 @@ const pickDirectory = async () => {
 }
 
 async function saveFile() {
-    // create a new handle
+    // 创建一个文件选择器
     const newHandle = await window.showSaveFilePicker();
-
-    // create a FileSystemWritableFileStream to write to
+    // 创建文件流进行写入
     const writableStream = await newHandle.createWritable();
     log('writableStream', writableStream)
-    let data = await newHandle.getFile()
-    log('data', data)
+    let file = await newHandle.getFile()
+    log('file', file)
 
     // 将文件内容直接替换
     let str = 'abc'
-    // write our file
+    // 写入文件
     await writableStream.write(str);
-
-    // close the file and write the contents to disk.
+    // 关闭文件，写入硬盘
     await writableStream.close();
 }
 
