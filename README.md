@@ -9,3 +9,4 @@
 2. Origin JavaScript is under directory origin.
 
 3. 付费会员表格在文件  PayTable.vue
+4. 小程序保存海报在 wechat-poster

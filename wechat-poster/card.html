@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @font-face {
+        font-family: "ITCAvantGardeGothicStd-DemiCn";
+        src: url("https://img.souche.com/f2e/ec4c3fda2788549c013bc789fca21a99.otf")
+          format("opentype");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      canvas,
+      .price {
+        font-family: "ITCAvantGardeGothicStd-DemiCn";
+        font-size: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="price">224</span>
+    <!-- <canvas></canvas> -->
+    <script src="./paper.js"></script>
+    <script>
+      class Card extends Paper {
+        RIGHT_TEXT = ["最近好车", "先到先得"];
+        
+
+        PRICE_UNIT_TEXT = "万";
+        PRICE_UNIT_STYLE = {
+          fontFamily: "PingFang SC",
+          fontWeight: "600",
+          fontSize: "52px",
+          fillStyle: "#fff",
+          text: this.PRICE_UNIT_TEXT,
+        };
+
+        PRICE_STYLE = {
+          fontFamily: "ITCAvantGardeGothicStd-DemiCn",
+          fontWeight: "500",
+          fontSize: "64px",
+          fillStyle: "#fff"
+        }
+        TAG_TEXT_STYLE = {
+          fillStyle: "#ff2942",
+          fontSize: "27px",
+          fontWeight: "500",
+        }
+
+        PRICE_BG_WIDTH = 341;
+        PRICE_WIDTH = 0;
+        UNIT_WIDTH = 0;
+        TAG_WIDTH = 0;
+
+        price = "0.00";
+        priceType = "";
+        carImg ="";
+
+        constructor(ctx, ops) {
+          super(ctx);
+          Object.assign(this, ops);
+          this.init();
+        }
+
+        async render() {
+          const { price, carImg } = this;
+          const { PRICE_STYLE,PRICE_UNIT_STYLE, RIGHT_TEXT } = this;
+          await this.drawImage({
+            url: `${carImg}?x-oss-process=image/resize,m_fill,w_654,h_432,limit_0/quality,q_80`,
+            x: 0,
+            y: 0,
+            width: 654,
+            height: 432,
+          });
+
+          this.drawRect({
+            x:0,
+            y:432,
+            width:654,
+            height:100,
+            fillStyle:"#ffebc4"
+          });
+
+          this.drawPriceBg({
+            x:0,
+            y:419,
+            width:this.PRICE_BG_WIDTH,
+            height:113
+          });
+
+          let leftOffset = 24;
+          this.drawText({
+            ...PRICE_STYLE,
+            text: price,
+            x: leftOffset,
+            y: 501,
+            textBaseline: "alphabetic",
+          });
+          leftOffset += this.PRICE_WIDTH + 4;
+          this.drawText({
+            ...PRICE_UNIT_STYLE,
+            x: leftOffset,
+            y: 496,
+            textBaseline: "alphabetic",
+          });
+          leftOffset += this.UNIT_WIDTH + (this.TAG_WIDTH?10 :0);
+          this.drawTag({
+            x: leftOffset,
+            y: 460,
+            width: this.TAG_WIDTH,
+            height: 42,
+          });
+          leftOffset += this.TAG_WIDTH + 55;
+          this.drawRightText(leftOffset)
+        }
+
+        init() {
+          const { price,priceType } = this;
+          const {PRICE_UNIT_STYLE,PRICE_STYLE,TAG_TEXT_STYLE} = this;
+          this.PRICE_WIDTH = this.calcTextWidth({
+            ...PRICE_STYLE,
+            text: price,
+          });
+          this.UNIT_WIDTH = this.calcTextWidth({
+            ...PRICE_UNIT_STYLE,
+          });
+          this.TAG_WIDTH =priceType? this.calcTextWidth({
+            ...TAG_TEXT_STYLE,
+            text: priceType,
+          })+14*2:0; // 14px 横向 padding 
+          this.PRICE_BG_WIDTH =
+            24 + this.PRICE_WIDTH + 2 + this.UNIT_WIDTH + (this.TAG_WIDTH?10 + this.TAG_WIDTH:0) + 55;
+        }
+
+        drawTag(ops) {
+          const { ctx,priceType } = this;
+          if(!priceType)return;
+          const {TAG_TEXT_STYLE} = this;
+          const { x, y, width, height } = ops;
+          this.drawRRect({
+            x,
+            y,
+            width,
+            height,
+            fillStyle: "#fff",
+          });
+
+          this.drawText({
+            ...TAG_TEXT_STYLE,
+            text: priceType,
+            x: x + 14,
+            y: y + 8,
+            textBaseline: "top",
+          });
+
+          ctx.restore();
+        }
+
+
+        drawPriceBg(ops) {
+          const { ctx } = this;
+          const {x,y,width,height} = ops;
+
+          ctx.save();
+          var grd = ctx.createLinearGradient(width, 0, 0, 0);
+          grd.addColorStop(0.0705, "#EB2525");
+          grd.addColorStop(1, "#F65430");
+          ctx.fillStyle = grd;
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(width - (410 - 330.249), y);
+          ctx.bezierCurveTo(
+            width - (410 - 345.589),
+            y + 0,
+            width - (410 - 359.577),
+            y + 8.77202,
+            width - (410 - 366.257),
+            y + 22.5803
+          );
+          ctx.lineTo(width, y + 113);
+          ctx.lineTo(0, y + 113);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+     
+        drawRightText(leftOffset){
+          const { RIGHT_TEXT } = this;
+          const RIGHT_TEXT_STYLE = {
+            fontSize: "34px",
+            fontWeight: "500",
+            fillStyle: "#ff2941",
+          };
+          this.drawText({
+            ...RIGHT_TEXT_STYLE,
+            text: RIGHT_TEXT[0],
+            x: leftOffset,
+            y: 447,
+            textBaseline: "top",
+          });
+          this.drawText({
+            ...RIGHT_TEXT_STYLE,
+            text: RIGHT_TEXT[1],
+            x: 654 - 26,
+            y: 419 + 28 + 40,
+            textAlign: "end",
+            textBaseline: "top",
+          });
+        }
+      }
+      window.onload = async function () {
+        const canvas = document.createElement("canvas");
+        // document.body.appendChild(canvas);
+        canvas.width = 654;
+        canvas.height = 532;
+        canvas.style = `width:${canvas.width}px; height:${canvas.height}px;`;
+        const ctx = canvas.getContext("2d");
+        const paper = new Card(ctx, {
+          price: 2223.5,
+          carImg: "http://img.souche.com/9F2404AD-6F1E-44DB-8122-69E57BE35872.jpg",
+          priceType: "一口价"
+        });
+        // document.body.appendChild(canvas);
+        await paper.render();
+        var image = new Image();
+        image.setAttribute('crossOrigin','anonymous') // 设置属性 crossOrigin
+        image.src = canvas.toDataURL()
+        document.body.appendChild(image);
+    
+      };
+    </script>
+    <!-- <script>
+      return;
+      function drawCanvasImage(ctx, item) {
+        ctx.save();
+        const { width, height, url, x, y } = item;
+        let img = document.createElement("img");
+        img.setAttribute("crossOrigin", "anonymous");
+        img.src = url;
+        return new Promise((resolve) => {
+          img.onload = () => {
+            ctx.imageSmoothingEnabled = true;
+            ctx.drawImage(img, x, y, width, height);
+            ctx.restore();
+            resolve();
+          };
+        });
+      }
+
+      function drawPriceBg(ctx) {
+        ctx.save();
+        ctx.fillStyle = '#ffebc4';
+        ctx.beginPath();
+        ctx.moveTo(0,432);
+        ctx.lineTo(654,432);
+        ctx.lineTo(654,532);
+        ctx.lineTo(0,532);
+        ctx.closePath();
+        ctx.fill();
+
+        var grd = ctx.createLinearGradient(410, 0, 0, 0);
+        grd.addColorStop(0.0705, "#f5542f");
+        grd.addColorStop(1, "#F65430");
+        ctx.fillStyle = grd;
+        ctx.beginPath();
+        ctx.moveTo(0, 419);
+        ctx.lineTo(330.249, 419);
+        ctx.bezierCurveTo(
+          345.589,
+          419 + 0,
+          359.577,
+          419 + 8.77202,
+          366.257,
+          419 + 22.5803
+        );
+        ctx.lineTo(410, 419 + 113);
+        ctx.lineTo(0, 419 + 113);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function drawText(ctx,txt,options={}){
+        const {
+            x = 0,
+            y = 0,
+            color,
+            fontFamily='PingFang SC',
+            fontSize='',
+            fontWeight='',
+            meature,
+            textAlign,
+            textBaseline
+        } = options;
+        ctx.save();
+        ctx.textAlign = textAlign;
+        ctx.textBaseline=textBaseline;
+        ctx.fillStyle = color;
+        ctx.font=`${fontWeight} ${fontSize}  ${fontFamily}`;
+        const txtWidth = ~~ctx.measureText(txt).width;
+        ctx.fillStyle = color;
+        ctx.fillText(txt,x,y);
+        ctx.restore();
+        return txtWidth;
+      }
+
+      function drawTag(ctx,txt,options){
+        const {
+            x,
+            y,
+            width,
+            height,
+        } = options;
+        ctx.save();
+        ctx.fillStyle = "#fff";
+        ctx.beginPath();
+        const radius = height/2;
+        ctx.moveTo(x+radius,y);
+        ctx.lineTo(x+width-radius,y);
+        ctx.arcTo(x+width,y,x+width,y+radius,radius);
+        ctx.arcTo(x+width,y+height,x+width-radius,y+height,radius);
+        ctx.lineTo(x+radius,y+height);
+        ctx.arcTo(x,y+height,x,y+height-radius,radius);
+        ctx.arcTo(x,y,x+radius,y,radius);
+        ctx.closePath()
+        ctx.fill();
+        drawText(ctx,txt,{
+            x:x+14,
+            y:y+7,
+            color:'#ff2942',
+            fontSize:'27px',
+            fontWeight:'500',
+            textBaseline:'top'
+        })
+        
+
+     
+
+        ctx.restore();
+      }
+
+
+      window.onload =  async function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = 654;
+        canvas.height = 532;
+        canvas.style = `width:${canvas.width}px; height:${canvas.height}px;`;
+        const ctx = canvas.getContext("2d");
+       
+        await drawCanvasImage(ctx, {
+          url: "http://img.souche.com/9F2404AD-6F1E-44DB-8122-69E57BE35872.jpg?x-oss-process=image/resize,m_fill,w_654,h_432,limit_0/quality,q_80",
+          x: 0,
+          y: 0,
+          width: 654,
+          height: 432,
+        });
+
+
+        drawPriceBg(ctx);
+       const numberTextWidth = drawText(ctx,'222.4',{
+            x:24,
+            y:501,
+            fontFamily: "ITCAvantGardeGothicStd-DemiCn",
+            fontWeight: 500,
+            fontSize: '64px',
+            color:'#fff',
+            textBaseline:'alphabetic'
+        });
+        const unitTextWidth =  drawText(ctx,'万',{
+            x:24+numberTextWidth+4,
+            y:496,
+            fontWeight: 600,
+            fontSize: '52px',
+            color:'#fff',
+            textBaseline:'alphabetic'
+        });
+
+        drawTag(ctx,"一口价",{
+            x:24+numberTextWidth+4+10 + unitTextWidth,
+            y:459,
+            width:110,
+            height:42
+        })
+        drawText(ctx,'最近好车',{
+            x:24+numberTextWidth+4+10 + unitTextWidth+55+110,
+            y:447,
+            fontSize:'34px',
+            fontWeight: '500',
+            color:'#ff2941',
+            textBaseline:'top'
+        });
+        drawText(ctx,'先到先得',{
+            x:654-26,
+            y:419+28+40,
+            fontSize:'34px',
+            fontWeight: '500',
+            color:'#ff2941',
+            textAlign:'end',
+            textBaseline:'top'
+        });
+        document.body.appendChild(canvas);
+      };
+    </script> -->
+  </body>
+</html>

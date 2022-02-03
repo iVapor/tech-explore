@@ -1,193 +1,119 @@
-let a =  [{
-    "id": "1",
-    "title": "集团商户",
-    "parentId": "0",
-    "showOrder": 1,
-    "orgId": "123456",
-    "type": "1",
-    "industryId": 1,
-    "industry": null,
-    "_disabled": false,
-    "storeType": "Group",
-    "level": 1,
-    "children": [{
-        "id": "226dd7e1-208e-4520-9aab-469213379beb",
-        "title": "测试测试3",
-        "parentId": "1",
-        "showOrder": 6,
-        "orgId": "07072544",
-        "type": "5",
-        "industryId": 1,
-        "industry": null,
-        "_disabled": true,
-        "storeType": "Group",
-        "level": 2,
-        "children": [],
-        "createType": 2
-    }, {
-        "id": "3da5a433-890b-4eba-840f-3c454eed3dca",
-        "title": "测试测试5",
-        "parentId": "1",
-        "showOrder": 8,
-        "orgId": "28219301",
-        "type": "4",
-        "industryId": 1,
-        "industry": null,
-        "_disabled": true,
-        "storeType": "Group",
-        "level": 2,
-        "children": [],
-        "createType": 3
-    }, {
-        "id": "87ede1c4-5d7f-4e5e-a8f9-1fed45244331",
-        "title": "测试测试4",
-        "parentId": "1",
-        "showOrder": 8,
-        "orgId": "62791249",
-        "type": "4",
-        "industryId": 1,
-        "industry": null,
-        "_disabled": true,
-        "storeType": "Group",
-        "level": 2,
-        "children": [],
-        "createType": 3
-    }, {
-        "id": "9878df93-a8bf-4f59-a675-bf768b88f8db",
-        "title": "华北大区",
-        "parentId": "1",
-        "showOrder": 8,
-        "orgId": "57170744",
-        "type": "4",
-        "industryId": 1,
-        "industry": null,
-        "_disabled": true,
-        "storeType": "Group",
-        "level": 2,
-        "children": [{
-            "id": "866483a9-a7e6-4255-9407-eca0d1d45a8d",
-            "title": "北京商场",
-            "parentId": "9878df93-a8bf-4f59-a675-bf768b88f8db",
-            "showOrder": 8,
-            "orgId": "28704543",
-            "type": "5",
-            "industryId": 1,
-            "industry": null,
-            "_disabled": true,
-            "storeType": "Group",
-            "level": 3,
-            "children": [{
-                "id": "1226127f-51c3-417c-9dbe-be8ab1947df6",
-                "title": "北京麦当劳1店",
-                "parentId": "866483a9-a7e6-4255-9407-eca0d1d45a8d",
-                "showOrder": 8,
-                "orgId": "36747846",
-                "type": "10",
-                "industryId": 1,
-                "industry": null,
-                "_disabled": true,
-                "storeType": "Group",
-                "level": 4,
-                "children": [],
-                "createType": 1
-            }],
-            "createType": 2
-        }],
-        "createType": 3
-    }],
-    "createType": 3
-}]
+/**
+ * 打印函数
+ * @type {any}
+ */
+const log = console.log.bind(console)
 
 /**
- * 创建级联的数据格式
- * @example createCascadeFormat(a, 'title', 'orgId' )
- * @param list 响应数据
- * @return {[]}
+ * 选择文件
+ * @returns {Promise<void>}
  */
-const createCascadeFormat = (list, labelKey, valueKey) => {
-    let base = []
-    for (let i = 0; i < list.length; i++) {
-        let node = list[i]
-        let format = {
-            label: node[labelKey],
-            value: node[valueKey],
-            children: [],
-        }
-
-        // 如果有子节点
-        if (node.children.length > 0) {
-            format.children = createCascadeFormat(node.children, labelKey, valueKey)
-        }
-        base.push(format)
+async function pickFile() {
+    // store a reference to our file handle
+    let fileHandle;
+    // open file picker
+    // fileHandle 是一个对象, 有两个属性
+    // kind 属性代表类型
+    // name 属性是名称
+    [fileHandle] = await window.showOpenFilePicker();
+    // 拿到文件的信息, 是一个 file 对象
+    let file = await fileHandle.getFile()
+    // 用文件读取器，读取文件内容
+    let read = new FileReader();
+    read.readAsBinaryString(file);
+    read.onloadend = function(){
+        console.log(read.result);
     }
-    return base
+
 }
 
-function validateContact(list) {
-    let p = list.some(i => {
-        let { relation, contactName, contactPhone } = i
-        if (relation !== '' || contactName !== '' || contactPhone !== '') {
-            return !relation || !contactName || !contactPhone
+/**
+ * 返回路径下的文件和文件夹名称
+ * @param directoryHandle
+ * @returns {Promise<void>}
+ */
+async function returnPathDirectories(directoryHandle) {
+
+    // Get a file handle by showing a file picker:
+    const [handle] = await self.showOpenFilePicker();
+    if (!handle) {
+        // User cancelled, or otherwise failed to open a file.
+        return;
+    }
+
+    // Check if handle exists inside directory our directory handle
+    const relativePaths = await directoryHandle.resolve(handle);
+    log('relativePaths', relativePaths)
+    if (relativePaths === null) {
+        // Not inside directory handle
+    } else {
+        // relativePaths is an array of names, giving the relative path
+
+        for (const name of relativePaths) {
+            // log each entry
+            console.log(name);
         }
+    }
+}
+
+/**
+ * 选择目录
+ * @returns {Promise<void>}
+ */
+const pickDirectory = async () => {
+    let dirHandle = await window.showDirectoryPicker()
+    const dirName = 'directoryToGetName';
+
+    // assuming we have a directory handle: 'currentDirHandle'
+    // 查找目录
+    const subDir = dirHandle.getDirectoryHandle(dirName, {create: false});
+    returnPathDirectories(dirHandle)
+}
+
+async function saveFile() {
+    // create a new handle
+    const newHandle = await window.showSaveFilePicker();
+
+    // create a FileSystemWritableFileStream to write to
+    const writableStream = await newHandle.createWritable();
+    log('writableStream', writableStream)
+    let data = await newHandle.getFile()
+    log('data', data)
+
+    // 将文件内容直接替换
+    let str = 'abc'
+    // write our file
+    await writableStream.write(str);
+
+    // close the file and write the contents to disk.
+    await writableStream.close();
+}
+
+const bindEvent = () => {
+    // 读取文件，需要用户触发
+    let fileEle = document.querySelector('.file')
+    // 点击按钮，打开文件选择器
+    fileEle.addEventListener('click', function (e){
+        pickFile()
     })
-    return p
+
+    // 读取目录，需要用户触发
+    let directoryEle = document.querySelector('.directory')
+    // 打开目录选择器
+    directoryEle.addEventListener('click', function () {
+        pickDirectory()
+    })
+
+    // 写入文件，需要用户触发
+    let writeEle = document.querySelector('.write')
+    writeEle.addEventListener('click', function () {
+        saveFile()
+    })
 }
 
-const learnIntersection = () => {
-    // 获取dom
-    const ulDom = document.querySelector('ul');
-    const MAX_LENGTH = 10;
-    // 渲染
-    function render() {
-        let html = '';
-        for (let i = 0; i < MAX_LENGTH; i++) {
-            html += `
-            <li>
-                <img class="loading" src="../images/loading.png" alt="">
-                <img class="img" src="" alt="" data-src='../images/image${(i % 5) + 1}.jpg'>
-            </li>`;
-        }
-        ulDom.insertAdjacentHTML('beforeend', html);
-    }
-    render();
-
-    const imgDomList = document.querySelectorAll('.img');
-
-    // 交叉观察器
-    const intersectionObserver = new IntersectionObserver((entires) => {
-        entires.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                // 模拟异步加载
-                setTimeout(() => {
-                    entry.target.src = entry.target.dataset.src;
-                    entry.target.previousElementSibling.remove();
-                    intersectionObserver.unobserve(entry.target);
-                }, 600);
-            }
-        })
-    }, { threshold: 0.25 });
-
-    [...imgDomList].forEach((item) => {
-        intersectionObserver.observe(item);
-    });
-}
 const __main = () => {
-    log('in __main')
-    // let data = createCascadeFormat(a, 'title', 'orgId' )
-    // log('data', data)
-    //
-    // let list = [
-    //     {
-    //         "relation": 2,
-    //         "contactName": "",
-    //         "contactPhone": "",
-    //         "status": true
-    //     }
-    // ]
-    // let v = validateContact(list)
-    // log('v', v)
-
-    learnIntersection()
+    // 在开始之前，先创建一个 demo 文件用于学习，例如 hello.txt, 文件内容 '123'。
+    bindEvent()
 }
 
 __main()
