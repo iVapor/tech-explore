@@ -1,4 +1,11 @@
-
+@font-face {
+    font-family: 'iconfont';  /* project id 3290481 */
+    src: url('?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_3290481_yipuxjjtlkd.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_3290481_yipuxjjtlkd.woff') format('woff'),
+    url('//at.alicdn.com/t/font_3290481_yipuxjjtlkd.ttf') format('truetype'),
+    url('#iconfont') format('svg');
+}
 
 body {
     font-family: pingfang SC,helvetica neue,arial,hiragino sans gb,microsoft yahei ui,microsoft yahei,simsun,sans-serif!important;
@@ -9,3 +16,6 @@ body {
     background: #fff;
 }
 
+.App {
+    background: rgb(244,244,245);
+}

@@ -1,0 +1,332 @@
+.main-wrapper {
+    padding: 0 2.5%;
+    padding-bottom: 2.5%;
+}
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+    .main-banner {
+        margin: 20px 0;
+        padding: 20px;
+        display: block;
+        background: url(https://img.alicdn.com/tfs/TB1y2TjQ7Y2gK0jSZFgXXc5OFXa-2120-220.png) 73% 100%/cover no-repeat;
+    }
+
+    .main-banner .banner-left {
+        width: 86%;
+    }
+
+    .main-banner .banner-right {
+        width: 100%;
+        padding-left: 0;
+    }
+
+    .content-hot-aticles {
+        margin: 0 auto 20px;
+        background-color: #fff;
+        padding: 10px 20px 20px;
+    }
+
+    .content-hot-aticles .tab-wrap {
+        display: block;
+    }
+
+    .tab-wrap .nav-extra {
+        margin-bottom: -5px;
+
+        font-size: 18px;
+        color: #373d41;
+        font-weight: 500;
+        white-space: nowrap;
+        padding-right: 20px;
+    }
+
+    .tab-wrap .tab-container {
+        height: 40px;
+        border-bottom: 1px solid gray;
+    ;
+    }
+    .tab-list .tab-item {
+        line-height: 40px;
+        font-size: 14px;
+    }
+
+    .tab-container .tab-list {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        position: absolute;
+        width: max-content;
+        -webkit-transition: all .3s;
+        transition: all .3s;
+    }
+
+    .tab-container .tab-list .tab-item.active {
+        color: #ff6f22;
+    }
+
+    .product-wrapper {
+        display: block;
+    }
+}
+
+.main-banner .banner-left .banner-left-title {
+    font-size: 28px;
+}
+
+.main-banner .banner-left .banner-left-subtitle {
+    color: #73777a;
+    font-size: 14px;
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+.main-banner .banner-right .follow-btn {
+    outline: none;
+    height: 32px;
+    margin-top: 8px;
+    width: 100px;
+    border: 1px solid #ff6a00;
+    border-radius: 2px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #ff6a00;
+    background: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+
+.main-content {
+    margin-top: 20px;
+}
+
+.product-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 10px 20px;
+}
+
+.product-item-wrapper {
+    margin-top: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.product-pic {
+    width: 100px;
+    margin-right: 10px;
+    height: 64px;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    background: 50%/cover no-repeat #eee;
+    border-radius: 3px;
+    overflow: hidden;
+    color: #fff;
+}
+
+.product-item {
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+
+.product-item-wrapper .product-detail {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #999;
+    display: flex;
+}
+
+.product-detail .user-ava {
+    border-radius: 50%;
+    vertical-align: -3px;
+    width: 16px;
+    height: 16px;
+    margin-right: 7px;
+    cursor: pointer;
+}
+
+.product-detail .user-name {
+    color: #999;
+    margin-right: 7px;
+}
+
+.product-detail .detail-date {
+    margin-top: 0.5px;
+    float: right;
+}
+
+.content-hot-aticles .section-footer {
+    margin-top: 20px;
+}
+
+.content-hot-aticles .section-footer .footer-right {
+    color: #ff6a00;
+    float: right;
+    margin-top: 2.5px;
+}
+
+.content-discuss {
+    margin: 0 auto 20px;
+    background-color: #fff;
+    padding: 10px 20px 20px;
+}
+
+.content-discuss .tab-wrap {
+    background: #fff;
+    border-bottom: 1px solid #dcdee3;
+    position: relative;
+    line-height: 40px;
+}
+
+.content-discuss .tab-wrap .nav-extra {
+    margin-bottom: -5px;
+    font-size: 18px;
+    color: #373d41;
+    font-weight: 500;
+    white-space: nowrap;
+    padding-right: 20px;
+}
+
+.content-discuss .tab-wrap .tab-container {
+    height: 40px;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: -1px;
+
+
+}
+
+.tab-container .tab-list {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    position: absolute;
+    width: -moz-max-content;
+    width: max-content;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.tab-container .tab-list .tab-item {
+    padding: 0 16px;
+    font-size: 16px;
+    color: #666;
+    line-height: 50px;
+    position: relative;
+    cursor: pointer;
+    -webkit-transition: color .3s;
+    transition: color .3s;
+}
+
+.tab-container .tab-list .tab-item.active {
+    color: #ff6f22;
+}
+
+.tab-container .tab-list .tab-item:after {
+    content: "";
+    position: absolute;
+    -webkit-transition: .3s;
+    transition: .3s;
+    border-radius: 0;
+    width: 0;
+    border-bottom: 2px solid #f60;
+    left: 50%;
+    bottom: 0;
+    z-index: 10;
+}
+
+.tab-container .tab-list .tab-item {
+    line-height: 40px;
+    padding: 0 16px;
+    font-size: 16px;
+    color: #666;
+    position: relative;
+    cursor: pointer;
+    -webkit-transition: color .3s;
+    transition: color .3s;
+}
+
+.product-wrapper {
+    display: block;
+    grid-template-columns: repeat(2,1fr);
+    grid-column-gap: 20px;
+}
+
+.product-item {
+    margin-top: 25px;
+}
+
+.product-title {
+    color: #181818;
+    transition: .2s;
+    font-size: 14px;
+    line-height: 20px;
+    max-height: 40px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.product-detail {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #999;
+}
+
+@media only screen and (min-width: 768px) {
+
+
+    .main-banner {
+        width: 1060px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        background: url(https://img.alicdn.com/tfs/TB1y2TjQ7Y2gK0jSZFgXXc5OFXa-2120-220.png) 100% 100%/cover no-repeat;
+    }
+
+    .content-hot-aticles {
+        margin-bottom: 20px;
+        background-color: #fff;
+        padding: 10px 20px 20px;
+        width: 760px;
+    }
+
+    .tab-container {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        overflow: hidden;
+        position: relative;
+        margin-bottom: -1px;
+    }
+
+    .tab-list {
+        right: 0;
+    }
+
+    .nav-extra {
+        font-size: 18px;
+        color: #373d41;
+        font-weight: 500;
+        white-space: nowrap;
+        padding-right: 20px;
+    }
+}
