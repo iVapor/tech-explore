@@ -1,4 +1,5 @@
 # tech-explore
+此仓库从 2022年4月13日 后不再更新
 
 ## Destination
 1. Explore new technique.
